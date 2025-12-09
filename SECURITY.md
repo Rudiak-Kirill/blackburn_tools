@@ -2,7 +2,7 @@
 
 Responsible disclosure
 - If you discover a security vulnerability, please report it privately to the maintainers.
-- Send details (steps to reproduce, affected versions, PoC) to: security@your-domain.example (replace with a real address).
+- Send details (steps to reproduce, affected versions, PoC) to: `rudyak.kirill@gmail.com`.
 
 Response expectations
 - Acknowledgement within 48 hours.
@@ -27,7 +27,9 @@ Legal
 - Please do not violate applicable laws when researching vulnerabilities. We will not pursue legal action against good-faith security researchers following this policy.
 
 Contact
-- security@your-domain.example
+- `rudyak.kirill@gmail.com`
+
+Если вы обнаружили уязвимость или полагаете, что часть функционала может привести к утечке данных — пожалуйста, напишите нам на указанный security контакт. Мы обязуемся ответить в течение 48 часов и начать координацию исправления/миграции риска.
 
 --
 This document describes the public project's security reporting process. For enterprise/private modules, follow the contract-specific disclosure process.
