@@ -1,8 +1,8 @@
 # Blackburn DevBlog
 
-This tool turns Git commits into human-friendly devlog posts and can publish them to Telegram.
+Этот инструмент превращает Git-коммиты в удобочитаемые посты для devlog и может публиковать их в Telegram.
 
-Quick start (from the tool folder):
+Быстрый старт (из папки инструмента):
 
 ```powershell
 cd tools/devblog
@@ -12,9 +12,9 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
-Notes:
-- API endpoints are available under `app/api` (FastAPI).
-- Admin HTML UI is at `/admin/projects` (protected by `ADMIN_API_KEY` if set).
-- CLI helper: `scripts/manage_projects.py` for local project management.
+Примечания:
+- API доступен в `app/api` (FastAPI).
+- HTML-админка доступна по `/admin/projects` (защищается `ADMIN_API_KEY`, если задан).
+- Для управления проектами локально можно использовать CLI-утилиту: `scripts/manage_projects.py`.
 
-If you keep private enterprise modules, add them as submodules under `tools/devblog/enterprise/` or install from private PyPI. See `PRIVATE_MODULES.md` in the repo root.
+Если вы используете приватные enterprise-модули, добавляйте их как submodule в `tools/devblog/enterprise/` или устанавливайте из приватного PyPI. См. `PRIVATE_MODULES.md` в корне репозитория.
