@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>{% if action == 'create' %}Create{% else %}Edit{% endif %} Project</title>
+  </head>
+  <body>
+    <h1>{% if action == 'create' %}Create{% else %}Edit{% endif %} Project</h1>
+    {% if action == 'create' %}
+      <form method="post" action="/admin/projects/create">
+    {% else %}
+      <form method="post" action="/admin/projects/{{ project.id }}/edit">
+    {% endif %}
+      <div>
+        <label>Name: <input name="name" value="{{ project.name if project else '' }}" required></label>
+      </div>
+      <div>
+        <label>Repo full name: <input name="repo_full_name" value="{{ project.repo_full_name if project else '' }}" {% if action=='edit' %}readonly{% endif %} required></label>
+      </div>
+      <div>
+        <label>Telegram chat id: <input name="telegram_chat_id" value="{{ project.telegram_chat_id if project else '' }}" required></label>
+      </div>
+      <div>
+        <label>Language: <input name="language" value="{{ project.language if project else 'ru' }}"></label>
+      </div>
+      <div>
+        <label>AI enabled: <input type="checkbox" name="ai_enabled" value="1" {% if project and project.ai_enabled %}checked{% endif %}></label>
+      </div>
+      <div>
+        <button type="submit">Save</button>
+        <a href="/admin/projects">Cancel</a>
+      </div>
+    </form>
+  </body>
+</html>
