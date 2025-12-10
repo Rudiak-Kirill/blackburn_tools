@@ -1,0 +1,114 @@
+# Cursor Rules for Blackburn Tools Monorepo
+
+## Overview
+This repository is an open-core monorepo containing multiple tools/agents under `tools/`. 
+Cursor (AI coding assistant) may freely create, edit, and delete files within this repository
+following the guidelines below.
+
+## File Editing Permissions
+
+### ✅ ALLOWED - Create/Edit/Delete Without Approval
+- **Code in `tools/`**: Python, JavaScript, TypeScript, config files (all languages)
+- **Documentation**: README.md, guides, setup instructions, comments
+- **Scripts**: CLI tools, migration scripts, bootstrap scripts in `scripts/`
+- **Tests**: Unit tests, integration tests, test fixtures
+- **CI/CD**: GitHub Actions workflows, build configs, task runners
+- **Configuration**: setup.py, pyproject.toml, requirements.txt, package.json, etc.
+- **Database models**: SQLAlchemy models, migrations, schema definitions
+- **API code**: FastAPI routes, endpoints, request/response schemas
+
+### ⚠️ REQUIRE APPROVAL - Ask Before Editing
+- **Secrets/Credentials**: .env files, tokens, keys, API credentials
+  - Never insert real secrets into repo files
+  - Always use placeholders and document required env vars
+  - .env should be .gitignored
+- **License files**: LICENSE, COPYING, legal ownership
+- **Security policy**: SECURITY.md (unless updating contact info with explicit permission)
+- **Git history**: Never rewrite history without explicit approval and backup
+- **Core shared code** if it affects multiple tools (propose changes, wait for feedback)
+- **Database migrations**: Discuss with team before applying production migrations
+
+## Guidelines for Safe Editing
+
+### Commits & Auditing
+- Every change must include a concise, clear git commit message
+- Use conventional commits format: `type: description` (e.g., `feat: add webhook handler`, `fix: correct signature validation`)
+- Document significant changes in task tracking / TODO list
+- Always provide context and reasoning in commit messages
+
+### Testing & Validation
+- When adding or modifying runtime code:
+  - Run relevant tests locally if possible
+  - Report test results and any failures
+  - Add minimal smoke tests if none exist
+- For CI/CD changes, ensure workflows validate correctly
+- For database schema changes, verify migrations work end-to-end
+
+### Safety Practices
+- **Before destructive operations** (delete large folders, rewrite git history):
+  - Create a backup (bundle, branch, or snapshot)
+  - Notify the maintainer
+  - Wait for explicit approval if irreversible
+- **No real secrets in code**: Use environment variables exclusively
+- **Backwards compatibility**: Avoid breaking changes without discussion
+- **Code style**: Follow existing patterns in the codebase
+
+### Communication
+- Before making large or unusual edits: explain what and why
+- After changes: summarize what was modified and expected outcome
+- If something fails: provide error logs, traceback, and proposed fix
+- Be transparent about limitations or uncertain changes
+
+## Scope & Constraints
+
+### This Repo
+- Single maintainer workflow (direct pushes to `main`)
+- Python-first (FastAPI, SQLAlchemy, pytest)
+- Tools are self-contained under `tools/<tool_name>/`
+- Shared utilities extracted to `blackburn_core/` (future)
+
+### Don't Do
+- Edit files outside `tools/` directory unless specifically requested
+- Modify other tools' code without understanding their context
+- Change git history or force-push without explicit approval
+- Insert real secrets or credentials into any file
+- Commit to branches other than `main` without discussion
+
+## Example Allowed Actions
+
+✅ Create `tools/my_new_tool/` with scaffold and README
+✅ Add new FastAPI endpoint to `tools/devblog/app/api/`
+✅ Update `tools/devblog/README.md` with setup instructions
+✅ Create test file `tools/devblog/tests/test_webhook.py`
+✅ Add GitHub Actions workflow for CI
+✅ Update `.gitignore` to ignore new patterns
+✅ Fix bug in `tools/devblog/app/services/commit_processor.py`
+✅ Create bootstrap script `tools/devblog/scripts/bootstrap.py`
+
+❌ Insert real `OPENAI_API_KEY=sk-...` into repo files
+❌ Delete `tools/devblog/` without asking
+❌ Modify LICENSE or ownership information
+❌ Rewrite git history without backup and approval
+❌ Create private module without documenting in PRIVATE_MODULES.md
+
+## Summary
+
+**Cursor is empowered to:**
+- Create, edit, delete any code/test/doc files in `tools/` and supporting directories
+- Add/modify CI, configuration, and build scripts
+- Make architectural changes within a single tool
+- Run tests and validate changes locally
+
+**Cursor must:**
+- Never add real secrets to repo files
+- Explain large changes before/after
+- Commit with clear messages and reasoning
+- Ask for approval before destructive or breaking changes
+- Test code when possible and report results
+- Document significant structural changes
+
+**Cursor should not:**
+- Modify files outside `tools/` without specific request
+- Change git history or core shared architecture without approval
+- Insert credentials, keys, or sensitive data
+- Make breaking changes without discussion
