@@ -84,7 +84,17 @@ async def github_webhook(
         raise HTTPException(status_code=401, detail="Missing signature")
 
     # Validate signature
+    # DEBUG: log signature info
+    logger.info(f"DEBUG: Signature header: {signature[:20]}...")
+    logger.info(f"DEBUG: Webhook secret (first 16): {webhook_secret[:16]}...")
+    logger.info(f"DEBUG: Request body length: {len(body)}")
+    
     if not validate_github_signature(body, signature, webhook_secret):
+        # DEBUG: compute what we expect
+        import hmac as hmac_module
+        import hashlib
+        expected_sig = hmac_module.new(webhook_secret.encode(), body, hashlib.sha256).hexdigest()
+        logger.error(f"Invalid signature. Expected: sha256={expected_sig}, Got: {signature}")
         logger.error(f"Invalid signature for project {project.id}")
         raise HTTPException(status_code=401, detail="Invalid signature")
     

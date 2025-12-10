@@ -143,11 +143,14 @@ def send_webhook(payload: dict, webhook_secret: str, server_url: str = "http://l
     
     # Compute HMAC-SHA256 signature
     payload_json = json.dumps(payload, separators=(',', ':'))
+    print(f"\n🔐 DEBUG: Payload length: {len(payload_json)} bytes")
+    print(f"🔐 DEBUG: Webhook secret (first 16 chars): {webhook_secret[:16]}...")
     signature = hmac.new(
         webhook_secret.encode(),
         payload_json.encode(),
         hashlib.sha256
     ).hexdigest()
+    print(f"🔐 DEBUG: HMAC-SHA256 signature: {signature}")
     
     headers = {
         "Content-Type": "application/json",
@@ -170,7 +173,7 @@ def send_webhook(payload: dict, webhook_secret: str, server_url: str = "http://l
     try:
         response = requests.post(
             webhook_url,
-            json=payload,
+            data=payload_json,
             headers=headers,
             timeout=10
         )
